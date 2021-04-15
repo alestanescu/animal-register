@@ -2,9 +2,9 @@
 let allAnimals = [];
 
 function getHtmlRegister(animals) {
-   return animals.map(animal => {
+   return animals.map((animal, i) => {
     return `<tr> 
-    <th></th>
+    <th>${i+1}</th>
     <th>${animal.nrCrotal}Nr. Crotal</th>
     <th>${animal.sex}</th>
     <th>${animal.birthday}</th>
