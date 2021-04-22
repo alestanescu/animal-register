@@ -46,6 +46,20 @@ router.get("/", function (req, res, next) {
   });
 });
 
+router.get("/miei", function (req, res, next) {
+  pool.getConnection(function (err, connection) {
+    if (err) throw err;
+    const sql = `SELECT id, nrCrotal, sex,  DATE_FORMAT(birthday, "%Y-%m-%d") as birthday, registrationDate, exitDate, motherId 
+    FROM registru 
+    WHERE birthday > "2020-04-22" `;
+    connection.query(sql, function (err, results) {
+      if (err) throw err;
+      connection.release();
+      res.json(results);
+    });
+  });
+});
+
 /**
  *
  */

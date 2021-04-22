@@ -7,6 +7,7 @@
 - Adriana Mocanu --> https://github.com/adriana-mocanu
 - Alexandra Stanescu -->
 - Bogdan Muste --> https://github.com/bogdanmuste
+- Alexandra Chicinas --> https://github.com/alexandraschicinas
 
 ## TO DO
 
