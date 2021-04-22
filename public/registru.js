@@ -4,22 +4,22 @@ let allAnimals = [];
 function getHtmlRegister(animals) {
    return animals.map((animal, i) => {
     return `<tr> 
-    <th>${i+1}</th>
-    <th>${animal.nrCrotal}Nr. Crotal</th>
-    <th>${animal.sex}</th>
-    <th>${animal.birthday}</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <td>${i+1}</td>
+    <td>${animal.nrCrotal}Nr. Crotal</td>
+    <td>${animal.sex}</td>
+    <td>${animal.birthday}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
         
     </tr>`
 }).join("")
