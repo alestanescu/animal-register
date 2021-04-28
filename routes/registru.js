@@ -65,8 +65,21 @@ router.get("/mame", function (req, res, next) {
     if (err) throw err;
     const sql = `SELECT id, nrCrotal, sex,  DATE_FORMAT(birthday, "%Y-%m-%d") as birthday, registrationDate, exitDate, motherId
     FROM registru 
-    WHERE sex="F" `;
-    
+    WHERE sex="F" `;    
+    connection.query(sql, function (err, results) {
+      if (err) throw err;
+      connection.release();
+      res.json(results);
+    });
+  });
+});
+
+router.get("/berbeci", function (req, res, next) {
+  pool.getConnection(function (err, connection) {
+    if (err) throw err;
+    const sql = `SELECT id, nrCrotal, sex,  DATE_FORMAT(birthday, "%Y-%m-%d") as birthday, registrationDate, exitDate, motherId
+    FROM registru 
+    WHERE sex="M" `;    
     connection.query(sql, function (err, results) {
       if (err) throw err;
       connection.release();
