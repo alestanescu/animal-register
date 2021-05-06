@@ -37,7 +37,18 @@ router.get("/install", function (req, res, next) {
 router.get("/", function (req, res, next) {
   pool.getConnection(function (err, connection) {
     if (err) throw err;
-    const sql = `SELECT id, nrCrotal, sex,  DATE_FORMAT(birthday, "%Y-%m-%d") as birthday, registrationDate, exitDate, motherId FROM registru`;
+    const sql = `
+    SELECT r.id, r.nrCrotal, r.sex,  
+      DATE_FORMAT(r.birthday, "%Y-%m-%d") as birthday, 
+      d.deparazitare,
+      DATE_FORMAT(d.dataDeparazitare, "%Y-%m-%d") as dataDeparazitare,
+      d.produsul
+    FROM registru as r
+    LEFT JOIN deparazitari AS d
+       ON r.id = d.animalId
+    GROUP BY r.id
+    ORDER BY r.id ASC, d.dataDeparazitare ASC
+    `;
     connection.query(sql, function (err, results) {
       if (err) throw err;
       connection.release();

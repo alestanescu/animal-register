@@ -8,9 +8,9 @@ function getHtmlRegister(animals) {
     <td>${animal.nrCrotal}</td>
     <td>${animal.sex}</td>
     <td>${animal.birthday}</td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>${animal.deparazitare || ""}</td>
+    <td>${animal.dataDeparazitare || ""}</td>
+    <td>${animal.produsul || ""}</td>
     <td></td>
     <td></td>
     <td></td>

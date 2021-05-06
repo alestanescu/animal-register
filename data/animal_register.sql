@@ -2,10 +2,10 @@
 -- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Gazdă: 127.0.0.1
--- Timp de generare: apr. 22, 2021 la 05:32 PM
--- Versiune server: 10.4.17-MariaDB
--- Versiune PHP: 8.0.2
+-- Host: 127.0.0.1
+-- Generation Time: May 06, 2021 at 07:19 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,36 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Bază de date: `animal_register`
+-- Database: `animal_register`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structură tabel pentru tabel `registru`
+-- Table structure for table `deparazitari`
+--
+
+CREATE TABLE `deparazitari` (
+  `id` int(11) NOT NULL,
+  `animalId` int(11) NOT NULL,
+  `deparazitare` text DEFAULT NULL,
+  `dataDeparazitare` date DEFAULT NULL,
+  `produsul` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `deparazitari`
+--
+
+INSERT INTO `deparazitari` (`id`, `animalId`, `deparazitare`, `dataDeparazitare`, `produsul`) VALUES
+(1, 2, 'Interna', '2020-10-06', 'Adebanz'),
+(2, 2, 'Interna', '2021-03-01', 'Adebanz'),
+(3, 3, 'Externa', '2021-01-05', 'Ivomec');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `registru`
 --
 
 CREATE TABLE `registru` (
@@ -39,7 +62,7 @@ CREATE TABLE `registru` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Eliminarea datelor din tabel `registru`
+-- Dumping data for table `registru`
 --
 
 INSERT INTO `registru` (`id`, `nrCrotal`, `sex`, `birthday`, `registrationDate`, `exitDate`, `motherId`, `description`) VALUES
@@ -58,32 +81,51 @@ INSERT INTO `registru` (`id`, `nrCrotal`, `sex`, `birthday`, `registrationDate`,
 (14, 'RO011', 'F', '2021-02-12', '2021-02-12', NULL, 10, NULL);
 
 --
--- Indexuri pentru tabele eliminate
+-- Indexes for dumped tables
 --
 
 --
--- Indexuri pentru tabele `registru`
+-- Indexes for table `deparazitari`
+--
+ALTER TABLE `deparazitari`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `animalId` (`animalId`);
+
+--
+-- Indexes for table `registru`
 --
 ALTER TABLE `registru`
   ADD PRIMARY KEY (`id`),
   ADD KEY `motherId` (`motherId`);
 
 --
--- AUTO_INCREMENT pentru tabele eliminate
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pentru tabele `registru`
+-- AUTO_INCREMENT for table `deparazitari`
+--
+ALTER TABLE `deparazitari`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `registru`
 --
 ALTER TABLE `registru`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- Constrângeri pentru tabele eliminate
+-- Constraints for dumped tables
 --
 
 --
--- Constrângeri pentru tabele `registru`
+-- Constraints for table `deparazitari`
+--
+ALTER TABLE `deparazitari`
+  ADD CONSTRAINT `animalId` FOREIGN KEY (`animalId`) REFERENCES `registru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `registru`
 --
 ALTER TABLE `registru`
   ADD CONSTRAINT `registru_ibfk_1` FOREIGN KEY (`motherId`) REFERENCES `registru` (`id`) ON UPDATE NO ACTION;
