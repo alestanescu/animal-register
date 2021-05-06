@@ -5,7 +5,7 @@ function getHtmlLambs(animals) {
         return `<tr> 
             <td>${i+1}</td>
             <td>${animal.nrCrotal}</td>
-            <td>${animal.motherId}</td>
+            <td>${animal.motherNrCrotal}</td>
             <td>${animal.sex}</td>
             <td>${animal.birthday}</td>
             <td></td>

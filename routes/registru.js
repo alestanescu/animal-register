@@ -49,13 +49,16 @@ router.get("/", function (req, res, next) {
 router.get("/miei", function (req, res, next) {
   pool.getConnection(function (err, connection) {
     if (err) throw err;
-    const sql = `SELECT id, nrCrotal, sex,  
-      DATE_FORMAT(birthday, "%Y-%m-%d") as birthday, 
-      DATE_FORMAT(registrationDate, "%Y-%m-%d") as registrationDate, 
-      DATE_FORMAT(exitDate, "%Y-%m-%d") as exitDate, 
-      motherId 
-      FROM registru 
-      WHERE birthday > DATE_SUB(now(), INTERVAL 12 MONTH) `;
+    const sql = `
+      SELECT m.id, m.nrCrotal, m.sex,  
+        DATE_FORMAT(m.birthday, "%Y-%m-%d") as birthday, 
+        DATE_FORMAT(m.registrationDate, "%Y-%m-%d") as registrationDate, 
+        DATE_FORMAT(m.exitDate, "%Y-%m-%d") as exitDate, 
+        m.motherId , parent.nrCrotal as motherNrCrotal
+      FROM registru as m 
+      JOIN registru AS parent 
+        ON parent.id = m.motherId
+      WHERE m.birthday > DATE_SUB(now(), INTERVAL 12 MONTH) `;
     connection.query(sql, function (err, results) {
       if (err) throw err;
       connection.release();

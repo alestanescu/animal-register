@@ -5,7 +5,7 @@ function getHtmlRegister(animals) {
    return animals.map((animal, i) => {
     return `<tr> 
     <td>${i+1}</td>
-    <td>${animal.nrCrotal}Nr. Crotal</td>
+    <td>${animal.nrCrotal}</td>
     <td>${animal.sex}</td>
     <td>${animal.birthday}</td>
     <td></td>
