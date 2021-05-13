@@ -40,14 +40,17 @@ router.get("/", function (req, res, next) {
     const sql = `
     SELECT r.id, r.nrCrotal, r.sex,  
       DATE_FORMAT(r.birthday, "%Y-%m-%d") as birthday, 
-      d.deparazitare,
-      DATE_FORMAT(d.dataDeparazitare, "%Y-%m-%d") as dataDeparazitare,
-      d.produsul
+      most_recent.deparazitare,
+      DATE_FORMAT(most_recent.dataDeparazitare, "%Y-%m-%d") as dataDeparazitare,
+      most_recent.produsul
     FROM registru as r
-    LEFT JOIN deparazitari AS d
-       ON r.id = d.animalId
-    GROUP BY r.id
-    ORDER BY r.id ASC, d.dataDeparazitare ASC
+    LEFT JOIN (
+        SELECT * FROM deparazitari
+        WHERE id IN (
+          SELECT max(id) from deparazitari group by animalId
+        )
+      ) as most_recent
+      ON r.id = most_recent.animalId
     `;
     connection.query(sql, function (err, results) {
       if (err) throw err;
