@@ -56,11 +56,28 @@ function addAnimal(animal) {
     .then(r => r.json())
     .then(status => {
         if (status.success) {
-            window.location.reload();
+            loadAnimals();
         }
     });
 }
 
+
+function updateAnimals(animal) {
+    fetch("http://localhost:3000/animals/update",{
+        method: "Put",
+        body: JSON.stringify(animal),
+        headers: {
+            "Content-Type":"application/json"
+        }
+        
+    })
+        .then(r => r.json())
+        .then(status => {
+            if (status.success) {
+                loadTeams();
+            }
+        });
+}
 
 document.querySelector("table tbody").addEventListener("click", e => {
     if (e.target.matches("a.remove-btn")) {
@@ -76,4 +93,34 @@ document.querySelector("table tbody").addEventListener("click", e => {
     }
 });
 
+function saveAnimals() {
+    // const nrOrdin = document.querySelector("input[name=i+]").value;
+    const  nrCrotal= document.querySelector("input[name=nrCrotal]").value;
+    const sex = document.querySelector("input[name=sex]").value;
+    const birthday = document.querySelector("input[name=birthday]").value;
+    const  deparazitare= document.querySelector("input[name=deparazitare]").value;
+    const dataDeparazitare = document.querySelector("input[name=dataDeparazitare]").value;
+    const produsul = document.querySelector("input[name=produsul]").value;
+
+    const animal = {
+        // nrOrdin: nrOrdin,
+        nrCrotal: nrCrotal,
+        sex: sex,
+        birthday: birthday,
+        deparazitare: deparazitare,
+        dataDeparazitare: dataDeparazitare,
+        produsul: produsul
+
+    };
+    console.warn(animal, editId);
+    if (editId) {
+        animal.id = editId
+        console.warn('uodate', animal, editId);
+        updateanimals(animal);
+    } else {
+        addAnimal(animal);
+
+    }
+    
+};
 
